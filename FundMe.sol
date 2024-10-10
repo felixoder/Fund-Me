@@ -9,18 +9,26 @@ contract FundMe {
     using PriceConverter for uint256;
     // uint256 public myValue = 1;
     // payable => mark that this function can accept ether
-    uint256 public minimumUsd = 5e18 ; //Adding the 8 decimals after the dot for a better precision
+
+    uint256 public constant MINIMUM_USD = 5e18 ; //Adding the 8 decimals after the dot for a better precision
+
+    // this constant keyword saves some gas
+    // we saved this much gas 824358 [without constant] 804400 [with constant] 
 
     address[] public funders; // get a list of the persons who funds money
 
     mapping(address funder => uint256 amountFunded) public addressToAmountFunded;
 
+    // This immutable keyword also saves some gas!
 
-    address public owner;
+    address public immutable i_owner;
+
+    // WHAT IMMUTABLE and CONSTANT does is instead of storing tha values on the storage slot it stores directly in the bytecode of the contract
+
 
     //  This will enable a owner of the contract ONLY WHO CAN WITHDRAW MONEY
     constructor(){
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
     
 
@@ -36,7 +44,7 @@ contract FundMe {
         // require(value, if not successfull message)
         // myValue = myValue+2;
         // Using the getConversionRate
-        require(msg.value.getConversionRate() >= minimumUsd, "didn't have enough ETH"); //1e18 = 1 ETH = 1000000000000000000 = 1 * 10 ** 18 wei
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "didn't have enough ETH"); //1e18 = 1 ETH = 1000000000000000000 = 1 * 10 ** 18 wei
         // here in the function call the msg.value will be the first params of the function getConversionRate
         funders.push(msg.sender); // update the value after successfull payments
 
@@ -110,9 +118,13 @@ contract FundMe {
 
     */
     modifier onlyOwner(){
-        require(msg.sender == owner, "Sender is not owner!");
+        require(msg.sender == i_owner, "Sender is not owner!");
         _;
     }
 
     
 }
+
+
+// 824358 
+// 804400 
