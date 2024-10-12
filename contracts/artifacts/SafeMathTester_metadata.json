@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.27+commit.40a35a09"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -39,9 +39,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"SafeMathTester.sol": "SafeMathTester"
+			"contracts/SafeMathTester.sol": "SafeMathTester"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -53,7 +53,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"SafeMathTester.sol": {
+		"contracts/SafeMathTester.sol": {
 			"keccak256": "0xd8e5f08a883ed6d5fe24e7aa054e7a363cde6431668740a4f09a3d3895924de9",
 			"license": "MIT",
 			"urls": [
